@@ -1,0 +1,48 @@
+class Loops {
+
+    void main(String[] args) {
+
+        int i = 0;
+        while (i < 10) {
+            // While loop unchanged.
+            i++;
+        }
+
+        int t = 0
+        do {
+            // Do-While loop unganged.
+            t++;
+        } while(t < 10);
+
+        for (int x = 0; x < 10; x++) {
+            // For loop unchanged.
+        }
+
+        for (int x : 1..100) {
+            // Range from 1 to 100 including 100.
+        }
+
+        for (int x : 100..1) {
+            // Range from 100 to 1 including 1.
+        }
+
+        int[] anArray = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        for (int x : anArray) {
+            // Foreach loop unchanged.
+        }
+
+        for (auto x : anArray) {
+            // Foreach with x's type decuded.
+        }
+
+        for (int ref x : anArray) {
+            // Foreach loop using referenced integer.
+            // Changing the value of x changes the value in anArray as well.
+        }
+
+        for (auto ref x : anArray) {
+            // Foreach loop using x referenced with deduced type..
+            // Changing the value of x changes the value in anArray as well.
+        }
+    }
+}
