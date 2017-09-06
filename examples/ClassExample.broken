@@ -1,0 +1,30 @@
+class ClassExample {
+
+    // Public member variable.
+    public int publicField;
+
+    // Private member variable, member variables are private by default.
+    int secretField;
+
+    // Default constructor.
+    ClassExample(){
+        this.publicField = 10;
+        this.secretField = 5;
+    }
+
+    // Constructor with parameters.
+    ClassExample(int x1, int x2) {
+        this.publicField = x1;
+        this.secretField = x2;
+    }
+
+    void nonSecretMethod() {
+        // This is a public method, methods are public by default.
+        println("Public method!");
+    }
+
+    private void secretMethod() {
+        // This is a private method.
+        println("Private method!");
+    }
+}
