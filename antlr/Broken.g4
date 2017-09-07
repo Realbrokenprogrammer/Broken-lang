@@ -24,5 +24,96 @@
  
 grammar Broken;
 
+// Starting point for parsing a broken file.
+compilationUnit :
+	packageDeclaration? importDeclaration* typeDeclaration* EOF
+	;
 
+packageDeclaration :
+	annotaion* 'package' qualifiedName ';'
+	;
 
+importDeclaration :
+	'import' 'static'? qualifiedName ('.' '*')? ';'
+	;
+
+typeDeclaration :
+	classOrInterfaceModifier* classDeclaration
+	| classOrInterfaceModifier* enumDeclaration
+	| classOrInterfaceModifier* interfaceDeclaration
+	| classOrInterfaceModifier* annotationTypeDeclaration
+	| ';'
+	;
+	
+// modifier.
+
+//TODO: Make classOrInterfaceModifier optional and add public if not specified.
+classOrInterfaceModifier :
+	annotation
+	| ( 'public'		
+	  | 'protected'
+	  | 'private'
+	  | 'static'
+	  | 'abstract'
+	  | 'final'			// Not applicable on interfaces.
+	  | 'strictfp'
+	  )
+	;
+
+// variable modifier.
+
+classDeclaration :
+	'class' Identifier typeParameters?
+	('extends' typeType)?
+	('implements' typeList)?
+	classBody
+	;
+
+typeParameters :
+	'<' typeParameter (',' typeParameter)* '>'
+	;
+
+typeParameter :
+	Identifier ('extends' typeBound)?
+	;
+
+typeBound :
+	typeType ('&' typeType)*
+	;
+
+enumDeclaration :
+	ENUM Identifier ('implements' typeList)?
+	'{' enumConstants? ','? enumBodyDeclarations? '}'
+	;
+
+enumConstants :
+	enumConstant (',' enumConstant)*
+	;
+
+enumConstant :
+	annotation* Identifier arguments? classBody?
+	;
+
+enumBodyDeclarations :
+	';' classBodyDeclaration*
+	;
+
+typeType :
+	classOrInterfaceType ('[' ']')*
+	| primitiveType ('[' ']')*
+	;
+
+primitiveType :
+	'boolean'
+	| 'char'
+	| 'byte'
+	| 'short'
+	| 'int'
+	| 'long'
+	| 'float'
+	| 'double'
+	;
+
+qualifiedName :
+	Identifier ('.' Identifier)*
+	;
